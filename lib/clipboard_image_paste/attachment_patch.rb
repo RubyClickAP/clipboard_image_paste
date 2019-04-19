@@ -19,22 +19,22 @@ module AttachmentPatch
   # 'cause acts_as_attachable is sorting them according to insertion order
   #def save_attachments_with_pasted_images(attachments, author=User.current)
   def save_attachments(attachments, author=User.current)
-    logger.info "  ==> running in AttachmentPatch-save_attachments_with_pasted_images"
-    logger.error "  ==> attachments: " + attachments.inspect
+    #logger.info "  ==> running in AttachmentPatch-save_attachments_with_pasted_images"
+    #logger.error "  ==> attachments: " + attachments.inspect
     #if attachments && attachments.is_a?(Hash)
     if attachments.present?
       #logger.error "  ==> size: " + attachments.length
-      logger.error "  ==> 10001: " + attachments['10001'].inspect
+      #logger.error "  ==> 10001: " + attachments['10001'].inspect
       attachments.each do |key,value|
         next unless key.start_with?('1000')
         #logger.info "  ==> key:" + key + ", value: " + value.inspect
-        logger.info "  ==> key:" + key + ", name: "+ value['name'].to_s
+        #logger.info "  ==> key:" + key + ", name: "+ value['name'].to_s
         #  logger.info "  ==> [1000] ==> key: " + key.inspect + ", value: " + value.inspect
         #  value['file'] = PastedImage.new(value.delete('data'), value.delete('name'))
-        tmp = PastedImage.new(value.delete('data'), value.delete('name'))
-        logger.info "  ==> key:" + key + ", file: " + tmp.inspect
-        value['file'] = tmp
-        
+        #tmp = PastedImage.new(value.delete('data'), value.delete('name'))
+        #logger.info "  ==> key:" + key + ", file: " + tmp.inspect
+        #value['file'] = tmp
+        value['file'] =  PastedImage.new(value.delete('data'), value.delete('name'))
       end
     end
     #save_attachments_without_pasted_images(attachments, author)
